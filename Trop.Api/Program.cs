@@ -12,6 +12,7 @@ Env.ReadEnvFile(@"../.env");
 builder.Configuration.ConfigureEnvs();
 // Services
 builder.Services.AddContext();
+builder.Services.AddRedisCaching();
 
 var app = builder.Build();
 

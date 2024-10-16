@@ -11,7 +11,7 @@ public static partial class ServicesDiscovery
     {
         services.AddDbContext<TropContext>(options =>
         {
-            options.UseNpgsql(Environment.GetEnvironmentVariable("NPSQL_CONNECTION"),x => x.MigrationsAssembly("Trop.Api"));
+            options.UseNpgsql(Environment.GetEnvironmentVariable("NPSQL_CONNECTION") ?? throw new ArgumentException("Variable de entorno [NPSQL_CONNECTION] no configurada."),x => x.MigrationsAssembly("Trop.Api"));
         });
         return services;
     }
