@@ -13,6 +13,7 @@ builder.Configuration.ConfigureEnvs();
 // Services
 builder.Services.AddContext();
 builder.Services.AddRedisCaching();
+builder.Services.AddEndpoints();
 
 var app = builder.Build();
 
@@ -29,7 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.MapEndpoints();
 app.MapGet("/", () => "Hola");
 
 app.Run();
