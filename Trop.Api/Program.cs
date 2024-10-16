@@ -17,6 +17,9 @@ builder.Configuration.ConfigureEnvs();
 builder.Services.AddContext();
 builder.Services.AddRedisCaching();
 builder.Services.AddEndpoints();
+builder.Services.AddHandlers();
+builder.Services.AddHandlers();
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
