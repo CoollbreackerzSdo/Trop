@@ -1,0 +1,34 @@
+using Scalar.AspNetCore;
+
+using Trop.Api.Helpers.Env;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+// Envs
+Env.ReadEnvFile(@"../.env");
+builder.Configuration.ConfigureEnvs();
+// Services
+builder.Services.AddContext();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTheme(ScalarTheme.Moon)
+                .WithTitle("Trop")
+                .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
+}
+
+app.UseHttpsRedirection();
+
+app.MapGet("/", () => "Hola");
+
+app.Run();
