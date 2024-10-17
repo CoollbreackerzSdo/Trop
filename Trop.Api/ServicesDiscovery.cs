@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 using Trop.Api.Endpoints;
+using Trop.Api.Handlers.Authentication.JsonWebToken;
 
 namespace Trop.Api;
 
@@ -11,13 +13,14 @@ internal static partial class ServicesDiscovery
         configuration.AddEnvironmentVariables("STRIPE_PRIVATE_TOKEN");
         configuration.AddEnvironmentVariables("NPSQL_CONNECTION");
         configuration.AddEnvironmentVariables("REDIS_CONNECTION");
+        configuration.AddEnvironmentVariables("TOKEN_KEY");
         return configuration;
     }
     public static IServiceCollection AddRedisCaching(this IServiceCollection service)
     {
         service.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = Environment.GetEnvironmentVariable("REDIS_CONNECTION") ?? throw new ArgumentException("Variable de entorno REDIS_CONNECTION no configurada.");
+            options.Configuration = Environment.GetEnvironmentVariable("REDIS_CONNECTION") ?? throw new ArgumentException("Variable de entorno [REDIS_CONNECTION] no configurada.");
             options.InstanceName = "Trop";
         });
         return service;
@@ -31,5 +34,18 @@ internal static partial class ServicesDiscovery
     {
         foreach (var end in app.Services.GetService<IEnumerable<IEndpoint>>()!) end.Map(app);
         return app;
+    }
+    public static IServiceCollection AddBearerGenerator(this IServiceCollection services,IConfiguration config)
+    {
+        services.AddSingleton<IOptions<JsonWebTokenSettings>>(x => Options.Create<JsonWebTokenSettings>(new()
+        {
+            Key = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? throw new ArgumentException("Variable de entorno [TOKEN_KEY] no configurada."),
+            ExpirationDays = int.Parse(config["BearerToken:ExpirationDays"]!),
+            Audience = config["BearerToken:Audience"]!,
+            Issuer = config["BearerToken:Issuer"]!,
+            Author = config["BearerToken:Author"]!
+        }));
+        services.AddTransient<JsonWebTokenGenerator>();
+        return services;
     }
 }

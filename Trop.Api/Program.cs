@@ -6,7 +6,7 @@ using Trop.Api.Helpers.Env;
 using Trop.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var config = builder.Configuration;
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -21,6 +21,7 @@ builder.Services.AddHandlers();
 builder.Services.AddHashers();
 builder.Services.AddUnitOfWord();
 builder.Services.AddValidators();
+builder.Services.AddBearerGenerator(config);
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
