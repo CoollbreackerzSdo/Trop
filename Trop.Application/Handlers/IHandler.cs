@@ -1,5 +1,3 @@
-using Ardalis.Result;
-
 namespace Trop.Application.Handlers;
 
 public interface IHandler<TRequest, TResult>
@@ -8,7 +6,7 @@ public interface IHandler<TRequest, TResult>
 }
 public interface IHandlerAsync<TRequest, TResult>
 {
-    Task<Result<TResult>> Handle(TRequest request, CancellationToken token);
+    Task<Result<TResult>> HandleAsync(TRequest request, CancellationToken token);
 }
 public interface IHandlerRequest<TRequest>
 {
@@ -16,7 +14,7 @@ public interface IHandlerRequest<TRequest>
 }
 public interface IHandlerRequestAsync<TRequest>
 {
-    Task<Result> Handle(TRequest request, CancellationToken token);
+    Task<Result> HandleHandleAsync(TRequest request, CancellationToken token);
 }
 public interface IHandlerResponse<TResult>
 {
@@ -24,5 +22,5 @@ public interface IHandlerResponse<TResult>
 }
 public interface IHandlerResponseAsync<TResult>
 {
-    Task<Result<TResult>> Handle(CancellationToken token);
+    Task<Result<TResult>> HandleHandleAsync(CancellationToken token);
 }
