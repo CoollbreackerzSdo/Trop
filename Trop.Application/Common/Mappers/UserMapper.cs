@@ -15,6 +15,9 @@ public static partial class UserMapper
     public static partial UserView ToView(UserEntity entity);
     [MapProperty(nameof(UserEntity.UserName), nameof(UserCredentials.UserName))]
     [MapProperty([nameof(UserEntity.Security), nameof(UserEntity.Security.Email)], nameof(UserCredentials.Email))]
+    [MapperIgnoreSource(nameof(UserEntity.Detail))]
+    [MapperIgnoreSource(nameof(UserEntity.RegisterDateAtUtc))]
+    [MapperIgnoreSource(nameof(UserEntity.RegisterTimeAtUtc))]
     public static partial UserCredentials ToCredentials(UserEntity entity);
     private static DateTime ConstructUtcDateTime(UserEntity entity) => entity.RegisterDateAtUtc.ToDateTime(entity.RegisterTimeAtUtc);
 }

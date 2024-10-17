@@ -7,4 +7,4 @@ public record struct UserView(string UserName, string Email, DateTime Register)
     public DateTime Register { get; init; } = Register;
 }
 
-public record UserCredentials(string UserName, string Email);
+public record UserCredentials(Guid Key, string UserName, string Email);
