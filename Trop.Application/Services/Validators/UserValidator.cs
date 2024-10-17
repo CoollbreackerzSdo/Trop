@@ -19,6 +19,8 @@ public class UserValidator : AbstractValidator<CreateUserCommandHandler>
         RuleFor(x => x.Password)
             .MinimumLength(8)
             .Must(x => x.Count(IsNumber) >= 2)
-            .Must(x => x.Count(IsUpper) >= 4);
+            .WithMessage("la contraseña debe contener al menos 2 o mas caracteres numéricos")
+            .Must(x => x.Count(IsUpper) >= 4)
+            .WithMessage("la contraseña debe contener al menos 4 o mas caracteres mayúsculas");
     }
 }
