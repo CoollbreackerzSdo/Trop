@@ -37,11 +37,6 @@ namespace Trop.Api.Migrations
                         .HasColumnType("time without time zone")
                         .HasColumnName("register_time_utc");
 
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_rol");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(100)

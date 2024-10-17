@@ -13,7 +13,7 @@ using Trop.Infrastructure.Context;
 namespace Trop.Api.Migrations
 {
     [DbContext(typeof(TropContext))]
-    [Migration("20241015223151_Initial")]
+    [Migration("20241017033810_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,11 +39,6 @@ namespace Trop.Api.Migrations
                     b.Property<TimeOnly>("RegisterTimeAtUtc")
                         .HasColumnType("time without time zone")
                         .HasColumnName("register_time_utc");
-
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_rol");
 
                     b.Property<string>("UserName")
                         .IsRequired()

@@ -21,12 +21,6 @@ public class UserConfiguration : ConfigurationBase<UserEntity>
             .HasColumnName("user_name").HasMaxLength(100);
 
         builder
-            .Property(x => x.Rol)
-            .IsRequired()
-            .HasColumnName("user_rol")
-            .HasConversion(x => x.ToString(), x => Enum.Parse<UserRoles>(x, true));
-
-        builder
             .ComplexProperty(x => x.Security, options =>
             {
                 options
