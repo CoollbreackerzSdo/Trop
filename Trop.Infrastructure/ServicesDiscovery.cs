@@ -1,3 +1,5 @@
+using EntityFramework.Exceptions.PostgreSQL;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +14,8 @@ public static partial class ServicesDiscovery
     {
         services.AddDbContext<TropContext>(options =>
         {
-            options.UseNpgsql(Environment.GetEnvironmentVariable("NPSQL_CONNECTION") ?? throw new ArgumentException("Variable de entorno [NPSQL_CONNECTION] no configurada."), x => x.MigrationsAssembly("Trop.Api"));
+            options.UseNpgsql(Environment.GetEnvironmentVariable("NPSQL_CONNECTION") ?? throw new ArgumentException("Variable de entorno [NPSQL_CONNECTION] no configurada."), x => x.MigrationsAssembly("Trop.Api"))
+                .UseExceptionProcessor();
         });
         return services;
     }
