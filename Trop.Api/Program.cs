@@ -19,6 +19,7 @@ builder.Services.AddRedisCaching();
 builder.Services.AddEndpoints();
 builder.Services.AddHandlers();
 builder.Services.AddHandlers();
+builder.Services.AddUnitOfWord();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
