@@ -20,7 +20,7 @@ builder.Services.AddEndpoints();
 builder.Services.AddHandlers();
 builder.Services.AddHashers();
 builder.Services.AddUnitOfWord();
-
+builder.Services.AddValidators();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
