@@ -5,9 +5,9 @@ using Trop.Application.Handlers.Create;
 
 namespace Trop.Application.Services.Validators;
 
-public class UserValidator : AbstractValidator<CreateUserCommandHandler>
+public class CreateUserValidator : AbstractValidator<CreateUserCommandHandler>
 {
-    public UserValidator()
+    public CreateUserValidator()
     {
         RuleFor(x => x.Email)
             .EmailAddress();

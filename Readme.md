@@ -4,7 +4,7 @@
 
 # Trop E-Commerce
 
-### En que consisten esta app?
+## En que consisten esta app?
 
 ## Pre-requisitos
 
@@ -14,10 +14,22 @@
   - `postgres:17.0-alpine3`.20 0 superior
 * Opcional [Vim]()
 
-### Como ejecutar esta app
+## Como ejecutar esta app
 
 1. Necesitas inicializar `Podman` o `Docker` para proporcionar una base de datos estable rápida de utilizar y desechar
 
 2. Inicializar 2 contenedores o un compose como prefieras o utilizar otros medios para ejecutar bases de datos , inicializar un motor de base de datos de `postgres` y `redis`
 
-3. Configurar variables de entorno de conección a las bases de datos
+3. Configurar variables de entorno de colección a las bases de datos y configuración de gastos baso stripe en un archivos .env:
+    - `NPSQL_CONNECTION` 
+    - `TOKEN_KEY`
+    - `REDIS_CONNECTION`
+    - `STRIPE_PRIVATE_TOKEN`
+    - `STRIPE_PUBLIC_TOKEN`
+
+4. -
+
+
+Nota: 
+
+- No se deseo implementar refresh tokens
