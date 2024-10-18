@@ -16,7 +16,7 @@ public static partial class ServiceDiscovery
     public static IServiceCollection AddHandlers(this IServiceCollection service)
     {
         service.AddTransient<IHandlerAsync<CreateUserCommandHandler, UserCredentials>, CreateUserHandler>();
-        services.AddTransient<IHandler<ValidateUserCommandHandler, UserCredentials>, ReadCredentialsUseHandler>();
+        service.AddTransient<IHandler<ValidateUserCommandHandler, UserCredentials>, ReadCredentialsUseHandler>();
         return service;
     }
     public static IServiceCollection AddHashers(this IServiceCollection services)
