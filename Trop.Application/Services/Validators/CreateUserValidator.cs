@@ -13,7 +13,7 @@ public class CreateUserValidator : AbstractValidator<CreateUserCommandHandler>
             .EmailAddress();
 
         RuleFor(x => x.UserName)
-            .MinimumLength(10)
+            .MinimumLength(5)
             .MaximumLength(100);
 
         RuleFor(x => x.Password)
