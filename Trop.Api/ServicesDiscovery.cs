@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 using Trop.Api.Endpoints;
-using Trop.Api.Handlers.Authentication.JsonWebToken;
+using Trop.Api.Services.Authentication.JsonWebToken;
 
 namespace Trop.Api;
 
@@ -37,7 +37,7 @@ internal static partial class ServicesDiscovery
     }
     public static IServiceCollection AddBearerGenerator(this IServiceCollection services,IConfiguration config)
     {
-        services.AddSingleton<IOptions<JsonWebTokenSettings>>(x => Options.Create<JsonWebTokenSettings>(new()
+        services.AddSingleton(x => Options.Create<JsonWebTokenSettings>(new()
         {
             Key = Environment.GetEnvironmentVariable("TOKEN_KEY") ?? throw new ArgumentException("Variable de entorno [TOKEN_KEY] no configurada."),
             ExpirationDays = int.Parse(config["BearerToken:ExpirationDays"]!),
@@ -45,7 +45,7 @@ internal static partial class ServicesDiscovery
             Issuer = config["BearerToken:Issuer"]!,
             Author = config["BearerToken:Author"]!
         }));
-        services.AddTransient<JsonWebTokenGenerator>();
+        services.AddTransient<IJsonWebTokenGenerator,JsonWebTokenGenerator>();
         return services;
     }
 }

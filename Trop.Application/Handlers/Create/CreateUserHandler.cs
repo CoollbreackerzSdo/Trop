@@ -10,17 +10,21 @@ public class CreateUserHandler(IPasswordHasher<UserEntity> hasher, IUnitOfWord u
 {
     public async Task<Result<UserCredentials>> HandleAsync(CreateUserCommandHandler request, CancellationToken token)
     {
+        if (unitOfWord.UserRepository.GetAll().GroupBy(x => x.Security.Email).Count() >= 10)
+            return Result.Forbidden();
+
+        var model = UserMapper.Map(request);
+        model.Security.Password = hasher.HashPassword(model, model.Security.Password);
+        var credentials = unitOfWord.UserRepository.WithAddMap(model, UserMapper.ToCredentials);
+
         try
         {
-            var model = UserMapper.Map(request);
-            model.Security.Password = hasher.HashPassword(model, model.Security.Password);
-            var credentials = unitOfWord.UserRepository.WithAddMap(model, UserMapper.ToCredentials);
             await unitOfWord.SaveChangesAsync(token);
             return credentials;
         }
         catch (Exception)
         {
-            return Result.Conflict("Nombre de usuario ya registrado");
+            return Result.Conflict();
         }
     }
 }

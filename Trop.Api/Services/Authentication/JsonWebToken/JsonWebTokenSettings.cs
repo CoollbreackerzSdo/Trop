@@ -1,4 +1,4 @@
-namespace Trop.Api.Handlers.Authentication.JsonWebToken;
+namespace Trop.Api.Services.Authentication.JsonWebToken;
 
 public class JsonWebTokenSettings
 {

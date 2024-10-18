@@ -5,11 +5,11 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Trop.Api.Handlers.Authentication.JsonWebToken;
+namespace Trop.Api.Services.Authentication.JsonWebToken;
 
-public class JsonWebTokenGenerator(IOptions<JsonWebTokenSettings> options)
+public class JsonWebTokenGenerator(IOptions<JsonWebTokenSettings> options) : IJsonWebTokenGenerator
 {
-    public string Generate(IEnumerable<Claim> claims)
+    public string GenerateToken(IEnumerable<Claim> claims)
         => new JwtSecurityTokenHandler()
             .WriteToken(new JwtSecurityToken(
                 claims: claims,
