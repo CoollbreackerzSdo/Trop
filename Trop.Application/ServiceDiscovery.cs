@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Trop.Application.Handlers;
 using Trop.Application.Handlers.Create;
+using Trop.Application.Handlers.Read;
 using Trop.Application.Services.Validators;
 using Trop.Domain.Models.User;
 
@@ -14,7 +15,7 @@ public static partial class ServiceDiscovery
 {
     public static IServiceCollection AddHandlers(this IServiceCollection service)
     {
-        service.AddTransient<IHandlerAsync<CreateUserCommandHandler, UserCredentials>,CreateUserHandler>();
+        service.AddTransient<IHandlerAsync<CreateUserCommandHandler, UserCredentials>, CreateUserHandler>();
         return service;
     }
     public static IServiceCollection AddHashers(this IServiceCollection services)
@@ -24,7 +25,8 @@ public static partial class ServiceDiscovery
     }
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
-        services.AddTransient<IValidator<CreateUserCommandHandler>,UserValidator>();
+        services.AddTransient<IValidator<CreateUserCommandHandler>, UserValidator>();
+        services.AddTransient<IHandler<ValidateUserCommandHandler, UserCredentials>, ReadCredentialsUseHandler>();
         return services;
     }
 }

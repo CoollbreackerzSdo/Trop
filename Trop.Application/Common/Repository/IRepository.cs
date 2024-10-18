@@ -6,7 +6,6 @@ using Trop.Domain.Models.User;
 namespace Trop.Application.Common.Repository;
 
 public interface IRepository<T>
-    where T : EntityBase
 {
     IQueryable<T> GetAll();
     TResult WithAddMap<TResult>(T model, Func<T, TResult> map);
