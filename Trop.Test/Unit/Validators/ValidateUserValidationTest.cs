@@ -25,7 +25,7 @@ public class ValidateUserValidationTest
     public void InsertEmptyPassword_ReturnFalse()
     {
         var validator = new ValidateUserValidator();
-        var userDate = new ValidateUserCommandHandler("Carcos","cocacolase32902SDSA");
+        var userDate = new ValidateUserCommandHandler("Carcos","");
         validator.Validate(userDate).IsValid.Should().BeFalse();
     }
 }
