@@ -33,6 +33,13 @@ public class TropRepository<TModel> : IRepository<TModel>
 
     public TResult? WithSingleMapAsDefault<TResult>(Expression<Func<TModel, bool>> expressionFilter, Func<TModel?, TResult?> map)
         => map(_table.SingleOrDefault(expressionFilter));
+
+    public bool Any(Expression<Func<TModel, bool>> expression)
+        => _table.Any(expression);
+
+    public IQueryable<TModel> GetAll()
+        => _table;
+
     private protected readonly TropContext _context;
     private protected readonly DbSet<TModel> _table;
 }
